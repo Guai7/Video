@@ -56,6 +56,10 @@ dependencies {
     //日志拦截器
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
+    //Glide图片框架
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
     //retrofit2
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     //Gson converter gson解析

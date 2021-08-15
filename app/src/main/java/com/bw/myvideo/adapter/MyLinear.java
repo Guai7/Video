@@ -25,7 +25,10 @@ class MyLinear extends LinearLayoutManager {
     @Override
     public void onAttachedToWindow(RecyclerView view) {
         super.onAttachedToWindow(view);
+
+        //页面管理器
         helper = new PagerSnapHelper();
+        //设置一条目 为一页 达成抖音效果
         helper.attachToRecyclerView(view);
     }
 }

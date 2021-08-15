@@ -5,8 +5,6 @@ import com.bw.myvideo.entity.VideoBean;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-
-public
 /**
  *MyVideo
  *file name is : Api
@@ -14,9 +12,10 @@ public
  *author : 王益德
  *Describe:
  */
+public
 interface Api {
 
-    public final String VideoUrl = "http://39.98.153.96:8088/zytestapi/video/";
+    String VideoUrl = "http://39.98.153.96:8088/zytestapi/video/";
 
     @GET("findVideos")
     Observable<VideoBean> getVideo(@Query("pageSize")int item,@Query("currentPage")int page);

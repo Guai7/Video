@@ -1,67 +1,70 @@
 package com.bw.myvideo.activity;
 
-import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bw.mvp_lib.view.BaseActivity;
 import com.bw.myvideo.R;
-import com.bw.myvideo.adapter.MyAdapter;
-import com.bw.myvideo.adapter.MyLinear;
-import com.bw.myvideo.entity.VideoBean;
-import com.bw.myvideo.mvp.contract.IContract;
-import com.bw.myvideo.mvp.model.VideoModel;
-import com.bw.myvideo.mvp.presenter.VideoPresenter;
-import com.scwang.smart.refresh.layout.SmartRefreshLayout;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.bw.myvideo.adapter.FragmentAdapter;
+import com.bw.myvideo.fragment.KuaiFragment;
+import com.bw.myvideo.fragment.TikTokFragment;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity<VideoPresenter> implements IContract.IVideoView, OnLoadMoreListener, OnRefreshListener {
+/**
+ *MyVideo
+ *file name is : MainActivity
+ *created by Ender on 2021/8/15 16:54.
+ *author : 王益德
+ *Describe:
+ */
+public class MainActivity extends BaseActivity  {
 
-    private RecyclerView mainRv;
-    private SmartRefreshLayout mainRefresh;
-    private MyAdapter myAdapter;
-    private boolean isRefresh;
-
-    private int item = 5,page = 1;
+//    private com.google.android.material.tabs.TabLayout mainTabs;
+    private androidx.viewpager.widget.ViewPager mainVp;
 
     @Override
     public void initView() {
-        mainRv = findViewById(R.id.main_rv);
-        mainRv.setLayoutManager(new MyLinear(this));
-        mainRefresh = findViewById(R.id.main_refresh);
-        mainRefresh.setOnLoadMoreListener(this);
-        mainRefresh.setOnRefreshListener(this);
+
+//        mainTabs = findViewById(R.id.main_tabs);
+        mainVp = findViewById(R.id.main_vp);
     }
 
     @Override
     public void initData() {
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new TikTokFragment());
+        fragments.add(new KuaiFragment());
 
-        mainRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        List<String> titles = new ArrayList<>();
+        titles.add("抖音视图");
+        titles.add("快手视图");
+
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),titles,fragments);
+        mainVp.setAdapter(fragmentAdapter);
+//        mainTabs.setupWithViewPager(mainVp);
+
+        mainVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onScrollStateChanged(@NonNull @NotNull RecyclerView recyclerView, int newState) {
-                switch (newState){
-                    case RecyclerView.SCROLL_STATE_IDLE:
-                        RecyclerView.LayoutManager layoutManager = mainRv.getLayoutManager();
-                        StandardGSYVideoPlayer player = layoutManager.getChildAt(0).findViewById(R.id.item_video_view);
-
-                        player.startPlayLogic();
-                        break;
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (TikTokFragment.getGsyVideoManager() != null) {
+                    TikTokFragment.getGsyVideoManager().pause();
                 }
             }
-        });
-        presenter = new VideoPresenter(this,new VideoModel());
-        presenter.getVideoData(item,page);
 
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -69,42 +72,4 @@ public class MainActivity extends BaseActivity<VideoPresenter> implements IContr
         return R.layout.activity_main;
     }
 
-    @Override
-    public void showVideo(List<VideoBean.DataBean> list) {
-
-        mainRefresh.finishLoadMore();
-        mainRefresh.finishRefresh();
-
-        if (myAdapter ==null){
-            myAdapter = new MyAdapter(list);
-            mainRv.setAdapter(myAdapter);
-        }else {
-            if (isRefresh){
-                myAdapter.getData().clear();
-            }else {
-
-            }
-
-            myAdapter.getData().addAll(list);
-            myAdapter.notifyDataSetChanged();
-
-            if (list.size()==0){
-                mainRefresh.setEnableLoadMoreWhenContentNotFull(true);
-            }
-        }
-    }
-
-    @Override
-    public void onLoadMore(RefreshLayout refreshLayout) {
-        isRefresh = false;
-        page++;
-        presenter.getVideoData(item,page);
-    }
-
-    @Override
-    public void onRefresh(RefreshLayout refreshLayout) {
-        isRefresh = true;
-        page++;
-        presenter.getVideoData(item,page);
-    }
 }

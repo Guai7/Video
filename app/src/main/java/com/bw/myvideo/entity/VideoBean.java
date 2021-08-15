@@ -2,6 +2,7 @@ package com.bw.myvideo.entity;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public
@@ -61,7 +62,7 @@ class VideoBean {
         this.data = data;
     }
 
-    public static class DataBean implements MultiItemEntity {
+    public static class DataBean implements MultiItemEntity, Serializable {
         private int id;
         private String authname;
         private String publishtime;

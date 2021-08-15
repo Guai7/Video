@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smart.refresh.layout.SmartRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/kuai_refresh"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.scwang.smart.refresh.header.ClassicsHeader
+        app:srlTextRefreshing="刷新中···"
+        app:srlEnableLastTime="false"
+        app:srlTextPulling="下拉刷新"
+        app:srlTextRelease="释放刷新"
+        app:srlTextFinish="刷新完成"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/kuai_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.scwang.smart.refresh.footer.ClassicsFooter
+        app:srlTextLoading="正在加载中···"
+        app:srlTextPulling="上拉加载"
+        app:srlTextRelease="释放加载"
+        app:srlTextFinish="加载完成"
+        app:srlTextNothing="没有更多数据了"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>

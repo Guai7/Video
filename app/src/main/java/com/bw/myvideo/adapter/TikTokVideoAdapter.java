@@ -1,6 +1,6 @@
 package com.bw.myvideo.adapter;
 
-import android.view.View;
+import androidx.annotation.LayoutRes;
 
 import com.bw.myvideo.R;
 import com.bw.myvideo.entity.VideoBean;
@@ -21,13 +21,13 @@ public
  *author : 王益德
  *Describe:
  */
-class MyAdapter extends BaseMultiItemQuickAdapter<VideoBean.DataBean, BaseViewHolder> {
+class TikTokVideoAdapter extends BaseMultiItemQuickAdapter<VideoBean.DataBean, BaseViewHolder> {
 
     int i = 0;
 
-    public MyAdapter(@Nullable List<VideoBean.DataBean> data) {
+    public TikTokVideoAdapter(@Nullable List<VideoBean.DataBean> data) {
         super(data);
-        addItemType(0, R.layout.item_video);
+        addItemType(0, R.layout.item_tiktok_video);
     }
 
     @Override
@@ -39,5 +39,6 @@ class MyAdapter extends BaseMultiItemQuickAdapter<VideoBean.DataBean, BaseViewHo
             player.startPlayLogic();
             i++;
         }
+
     }
 }
