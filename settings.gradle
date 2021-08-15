@@ -1,0 +1,3 @@
+rootProject.name = "MyVideo"
+include ':app'
+include ':mvp_lib'
