@@ -77,4 +77,16 @@ public class KuaiDetailsActivity extends BaseActivity<VideoPresenter> {
         super.onDestroy();
         manager.stop();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        manager.pause();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        manager.start();
+    }
 }

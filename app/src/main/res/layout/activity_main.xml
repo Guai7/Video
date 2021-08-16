@@ -17,4 +17,11 @@
 <!--        android:layout_weight="1"-->
 <!--        />-->
 
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/main_bv"
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
 </LinearLayout>
