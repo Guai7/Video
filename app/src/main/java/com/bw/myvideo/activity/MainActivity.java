@@ -48,7 +48,10 @@ public class MainActivity extends BaseActivity  {
 
         mainBv.addItem(new BottomNavigationItem(R.mipmap.tiktok,"抖音视图"))
                 .addItem(new BottomNavigationItem(R.mipmap.kuai,"快手视图"))
-                .setMode(BottomNavigationBar.MODE_FIXED)
+                .setMode(BottomNavigationBar.MODE_FIXED)    //导航栏模式（固定）
+                .setBarBackgroundColor("#000000")           //底部导航栏 背景颜色
+                .setActiveColor("#FFFFFF")                  //选中时颜色
+                .setInActiveColor("#AAAAAA")                //未选中时颜色
                 .initialise();
 
         mainBv.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
